@@ -14,6 +14,10 @@ fetch(endpoint)
 
 searchBar.addEventListener('keyup', update);
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 function update() {
   const results = getResults(searchBar.value, cities);
   let html = results.map(city => {
@@ -22,7 +26,7 @@ function update() {
     const stateName = city.state.replace(regex, `<span class="hl">${this.value}</span>`);
     return `<li>
       <span>${cityName}, ${stateName}</span>
-      <span>${city.population}</span>
+      <span>${numberWithCommas(city.population)}</span>
     </li>`;
   }).join('');
   if (searchBar.value === "") {
